@@ -2,7 +2,6 @@ const { log } = require("console")
 const fs = require("fs")
 
 let data = fs.readFileSync("./input.txt", { encoding: "utf8" })
-// console.log(data)
 let regex = /mul\(([0-9]+),([0-9]+)\)|do\(\)|don't\(\)/g
 let muls = data.match(regex)
 
@@ -22,8 +21,8 @@ let go = true
 for (const mul of muls) {
   if (go && mul[0] != "d") {
     p1 += mul[0] * mul[1]
+  } else {
+    go = mul == "do()" ? true : false
   }
-  if (mul == "do()") go = true
-  if (mul == "don't()") go = false
 }
 console.log(p1)
