@@ -1,16 +1,14 @@
 const fs = require("fs")
-const readline = require("readline")
 
 let data = fs.readFileSync("./input.txt", { encoding: "utf8" })
-data = data.split("\r\n")
+data = data.split("\r\n").map((a) => a.split("   ").map((n) => parseInt(n)))
+
 const list1 = []
 const list2 = []
 
 for (const line of data) {
-  const nums = line.split("   ").map((n) => parseInt(n))
-
-  list1.push(nums[0])
-  list2.push(nums[1])
+  list1.push(line[0])
+  list2.push(line[1])
 }
 
 list1.sort((a, b) => a - b)

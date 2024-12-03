@@ -1,7 +1,7 @@
 const fs = require("fs")
 
 let data = fs.readFileSync("./input.txt", { encoding: "utf8" })
-data = data.split("\n").map((a) => a.split(" ").map((n) => parseInt(n)))
+data = data.split("\r\n").map((a) => a.split(" ").map((n) => parseInt(n)))
 
 let p1 = 0
 let p2 = 0
