@@ -1,6 +1,6 @@
 const fs = require("fs")
 
-let data = fs.readFileSync("./input.txt", { encoding: "utf8" })
+let data = fs.readFileSync("./inputs/3.txt", { encoding: "utf8" })
 let regex = /mul\(([0-9]+),([0-9]+)\)|do\(\)|don't\(\)/g
 let muls = data.matchAll(regex)
 

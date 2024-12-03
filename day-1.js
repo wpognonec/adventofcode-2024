@@ -1,6 +1,6 @@
 const fs = require("fs")
 
-let data = fs.readFileSync("./input.txt", { encoding: "utf8" })
+let data = fs.readFileSync("./inputs/1.txt", { encoding: "utf8" })
 data = data.split("\r\n").map((a) => a.split("   ").map((n) => parseInt(n)))
 
 const list1 = []
@@ -21,17 +21,16 @@ for (let i = 0; i < list1.length; i++) {
   distances.push(Math.abs(list1[i] - list2[i]))
 }
 
-total = distances.reduce((accumulator, current) => accumulator + current, 0)
-console.log(`Part 1 total: ${total}`)
+p1 = distances.reduce((accumulator, current) => accumulator + current, 0)
 
 // PART 2
-let similarity = 0
+let p2 = 0
 list1.forEach((l1num) => {
   let count = 0
   list2.forEach((l2num) => {
     if (l1num === l2num) count++
   })
-  similarity += l1num * count
+  p2 += l1num * count
 })
 
-console.log(`Part 2 total: ${similarity}`)
+console.log(p1, p2)
