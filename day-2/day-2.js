@@ -23,17 +23,21 @@ for (const levels of data) {
 }
 
 function isSafe(l1) {
-  l2 = [...l1]
-  if (
-    l2.sort((a, b) => a - b).toString() == l1.toString() ||
-    l2.sort((a, b) => b - a).toString() == l1.toString()
-  ) {
+  if (incOrDec(l1)) {
     let safe = true
     for (let i = 0; i < l1.length - 1; i++) {
       if (!inRange(l1[i + 1], l1[i])) safe = false
     }
     return safe
   }
+}
+
+function incOrDec(l1) {
+  l2 = [...l1]
+  return (
+    l2.sort((a, b) => a - b).join() == l1.join() ||
+    l2.sort((a, b) => b - a).join() == l1.join()
+  )
 }
 
 function inRange(num1, num2) {
