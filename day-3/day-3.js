@@ -4,9 +4,7 @@ let data = fs.readFileSync("./input.txt", { encoding: "utf8" })
 let regex = /mul\(([0-9]+),([0-9]+)\)|do\(\)|don't\(\)/g
 let muls = data.matchAll(regex)
 
-let p1 = 0
-let p2 = 0
-let go = true
+let [p1, p2, go] = [0, 0, true]
 
 for (const mul of muls) {
   if (mul[1]) {
