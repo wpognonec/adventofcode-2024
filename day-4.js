@@ -2,47 +2,39 @@ const fs = require("fs")
 
 let data = fs.readFileSync("./inputs/4.txt", { encoding: "utf8" })
 
-let d1 = data.split("\n")
-let d2 = []
-let d3 = []
-let d4 = []
+let g = data.split("\n")
+let p1 = 0
+let p2 = 0
 
-for (let i = 0; i < d1.length; i++) {
-  if (i === 0) d2.push("0".repeat(i) + d1[i].slice(0))
-  else d2.push("0".repeat(i) + d1[i].slice(0, -i))
-  d3.push(d1[i].slice(i) + "0".repeat(i))
-  d4 = rotateMatrix(d1)
-}
+for (let r = 0; r < g.length; r++) {
+  for (let c = 0; c < g.length; c++) {
+    // Part 1
+    if (c + 3 < g.length) {
+      let word = g[r][c] + g[r][c + 1] + g[r][c + 2] + g[r][c + 3]
+      if (["XMAS", "SAMX"].includes(word)) p1++
+    }
+    if (r + 3 < g.length) {
+      let word = g[r][c] + g[r + 1][c] + g[r + 2][c] + g[r + 3][c]
+      if (["XMAS", "SAMX"].includes(word)) p1++
+    }
 
-let d1txt = data
-let d2txt = d2.join("\n")
-let d3txt = d2.join("\n")
-let d4txt = d2.join("\n")
+    if (r + 3 < g.length && c + 3 < g.length) {
+      let word = g[r][c] + g[r + 1][c + 1] + g[r + 2][c + 2] + g[r + 3][c + 3]
+      if (["XMAS", "SAMX"].includes(word)) p1++
+    }
 
-function rotateMatrix(matrix) {
-  const n = matrix.length
-  let rotated = [...matrix]
+    if (r - 3 >= 0 && c + 3 < g.length) {
+      let word = g[r][c] + g[r - 1][c + 1] + g[r - 2][c + 2] + g[r - 3][c + 3]
+      if (["XMAS", "SAMX"].includes(word)) p1++
+    }
 
-  for (let i = 0; i < rotated.length; i++) {
-    rotated[i] = rotated[i].split("")
-  }
-
-  for (let i = 0; i < n; i++) {
-    for (let j = i; j < n; j++) {
-      ;[rotated[i][j], rotated[j][i]] = [rotated[j][i], rotated[i][j]]
+    // Part 2
+    if (r + 2 < g.length && c + 2 < g.length) {
+      let word1 = g[r][c] + g[r + 1][c + 1] + g[r + 2][c + 2]
+      let word2 = g[r + 2][c] + g[r + 1][c + 1] + g[r][c + 2]
+      if (["MAS", "SAM"].includes(word1) && ["MAS", "SAM"].includes(word2)) p2++
     }
   }
-
-  for (let i = 0; i < n; i++) {
-    rotated[i] = rotated[i].reverse().join("")
-  }
-  return rotated
 }
 
-let regex = /(?=(XMAS|SAMX))/g
-let total = 0
-total += [...d1txt.matchAll(regex)].map((match) => match[1])
-total += [...d2txt.matchAll(regex)].map((match) => match[1])
-total += [...d3txt.matchAll(regex)].map((match) => match[1])
-total += [...d4txt.matchAll(regex)].map((match) => match[1])
-console.log(total.length)
+console.log(p1, p2)
